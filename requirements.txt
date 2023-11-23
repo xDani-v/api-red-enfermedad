@@ -2,7 +2,5 @@ Flask
 tensorflow 
 numpy 
 Pillow 
-fastapi 
 tensorboard 
 protobuf
-Flask-CORS

@@ -1,18 +1,13 @@
 
 import os
-from flask_cors import CORS
-
 os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "python"
 from flask import Flask, request, jsonify
 import tensorflow as tf
 import numpy as np
-from PIL import Image
-from io import BytesIO
-import base64
 import io
 
 app = Flask(__name__)
-CORS(app) 
+ 
 
 # Carga el modelo de modelo50
 model = tf.keras.models.load_model('skindect_model.h5')
