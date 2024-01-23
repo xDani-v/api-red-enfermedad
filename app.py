@@ -5,9 +5,10 @@ from flask import Flask, request, jsonify
 import tensorflow as tf
 import numpy as np
 import io
+import flask_cors as cors
 
 app = Flask(__name__)
- 
+cors.CORS(app)
 
 # Carga el modelo de modelo50
 model = tf.keras.models.load_model('skindect_model.h5')
