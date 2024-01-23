@@ -5,10 +5,10 @@ from flask import Flask, request, jsonify
 import tensorflow as tf
 import numpy as np
 import io
-import flask_cors as cors
+import psutil
 
 app = Flask(__name__)
-cors.CORS(app)
+
 
 # Carga el modelo de modelo50
 model = tf.keras.models.load_model('skindect_model.h5')
@@ -123,3 +123,5 @@ def vale():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
+    process = psutil.Process(os.getpid())
+    print(f"Consumo de memoria: {process.memory_info().rss / 1024 / 1024} MB")
