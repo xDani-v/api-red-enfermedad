@@ -6,10 +6,12 @@ import tensorflow as tf
 import numpy as np
 import io
 import psutil
-
+from flask_cors import CORS
 app = Flask(__name__)
+CORS(app)
 
 
+tf.keras.backend.set_learning_phase(0)
 # Carga el modelo de modelo50
 model = tf.keras.models.load_model('skindect_model.h5')
  
@@ -41,7 +43,7 @@ def predict():
 
     # Hacer predicción
     prediction = model.predict(image)
-
+    del image
     # Obtener la clase con mayor probabilidad
     class_index = np.argmax(prediction)
 
@@ -85,6 +87,7 @@ def predict2():
 
     # Hacer predicción
     prediction = model.predict(image)
+    del image
 
     # Obtener todas las probabilidades de clase
     prediction_values = prediction[0].tolist()  # Convertir a una lista de Python
@@ -122,6 +125,7 @@ def vale():
 
 
 if __name__ == '__main__':
+    from waitress import serve
     app.run(host='0.0.0.0', port=5000)
     process = psutil.Process(os.getpid())
     print(f"Consumo de memoria: {process.memory_info().rss / 1024 / 1024} MB")
